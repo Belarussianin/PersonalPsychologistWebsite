@@ -1,0 +1,14 @@
+site:
+  title: "PersonalPsychologistWebsite"
+
+server:
+  files:
+    dev:
+      contentRoot: "build/processedResources/js/main/public"
+      script: "build/kotlin-webpack/js/developmentExecutable/personalpsychologistwebsite.js"
+      api: "build/libs/personalpsychologistwebsite.jar"
+    prod:
+      script: "build/kotlin-webpack/js/productionExecutable/personalpsychologistwebsite.js"
+      siteRoot: ".kobweb/site"
+
+  port: 8080
