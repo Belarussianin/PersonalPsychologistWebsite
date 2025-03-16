@@ -1,25 +1,86 @@
 package com.belarussianin.personalpsychologistwebsite.pages
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import com.belarussianin.personalpsychologistwebsite.components.BackToTopButton
+import com.belarussianin.personalpsychologistwebsite.components.Footer
+import com.belarussianin.personalpsychologistwebsite.components.MobileMenu
+import com.belarussianin.personalpsychologistwebsite.components.rememberMobileMenuState
+import com.belarussianin.personalpsychologistwebsite.models.Section
+import com.belarussianin.personalpsychologistwebsite.sections.AboutSection
+import com.belarussianin.personalpsychologistwebsite.sections.HeaderSection
+import com.belarussianin.personalpsychologistwebsite.sections.HomeSection
+import com.belarussianin.personalpsychologistwebsite.sections.ServiceSection
+import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
+import com.varabyte.kobweb.compose.ui.modifiers.id
+import com.varabyte.kobweb.compose.ui.modifiers.zIndex
 import com.varabyte.kobweb.core.Page
-import org.jetbrains.compose.web.dom.Text
-import com.varabyte.kobweb.worker.rememberWorker
-import com.belarussianin.personalpsychologistwebsite.worker.EchoWorker
 
 @Page
 @Composable
 fun HomePage() {
-    val worker = rememberWorker { EchoWorker { output -> console.log("Echoed: $output") } }
-    LaunchedEffect(Unit) {
-        worker.postInput("Hello, worker!")
-    }
+    Box(
+        modifier = Modifier
+            .zIndex(2)
+            .id(Section.Home.id)
+            .fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val menuState = rememberMobileMenuState(false)
+            MobileMenu(
+                state = menuState,
+                onMenuClose = { menuState.close() }
+            )
 
-    // TODO: Replace the following with your own content
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("THIS PAGE INTENTIONALLY LEFT BLANK")
+            HeaderSection(
+                onMenuClicked = {
+                    menuState.toggle()
+                }
+            )
+
+            HomeSection()
+            ServiceSection()
+            AboutSection()
+
+            Footer()
+        }
+
+        BackToTopButton()
     }
 }
+
+//@Page
+//@Composable
+//fun HomePage() {
+//    var menuOpened by remember { mutableStateOf(false) }
+//    Column(modifier = Modifier.fillMaxSize()) {
+//        HeaderSection()
+//        Column(
+//            modifier = Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Top,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            MainSection(onMenuClicked = { menuOpened = true })
+//            AboutSection()
+//            ServiceSection()
+//            PortfolioSection()
+//            AchievementsSection()
+//            TestimonialSection()
+//            ExperienceSection()
+//            ContactSection()
+//            FooterSection()
+//        }
+//        BackToTopButton()
+//        if (menuOpened) {
+//            OverflowMenu(onMenuClosed = { menuOpened = false })
+//        }
+//    }
+//}
