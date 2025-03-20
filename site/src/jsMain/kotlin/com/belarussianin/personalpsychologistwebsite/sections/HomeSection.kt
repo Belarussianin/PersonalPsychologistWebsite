@@ -1,10 +1,6 @@
 package com.belarussianin.personalpsychologistwebsite.sections
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.belarussianin.personalpsychologistwebsite.models.Section
 import com.belarussianin.personalpsychologistwebsite.models.Theme
 import com.belarussianin.personalpsychologistwebsite.styles.HomeSectionButtonStyle
@@ -45,8 +41,6 @@ import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.maxHeight
 import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.objectFit
-import com.varabyte.kobweb.compose.ui.modifiers.onTouchEnd
-import com.varabyte.kobweb.compose.ui.modifiers.onTouchStart
 import com.varabyte.kobweb.compose.ui.modifiers.textDecorationLine
 import com.varabyte.kobweb.compose.ui.modifiers.textShadow
 import com.varabyte.kobweb.compose.ui.modifiers.width
@@ -56,6 +50,8 @@ import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
+import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import org.jetbrains.compose.web.css.Color
@@ -120,6 +116,7 @@ fun HomeText(breakpoint: Breakpoint) {
             ) {
                 Text(Res.String.HomeSection.head_start_text)
             }
+
             Column(
                 modifier = Modifier.margin(left = if (breakpoint >= Breakpoint.LG) 112.px else 48.px)
             ) {
@@ -130,6 +127,7 @@ fun HomeText(breakpoint: Breakpoint) {
                 ) {
                     Text(Res.String.HomeSection.head_end_text)
                 }
+
                 P(
                     attrs = Modifier
                         .margin(bottom = 25.px)
@@ -143,12 +141,12 @@ fun HomeText(breakpoint: Breakpoint) {
                 ) {
                     Text(Res.String.HomeSection.description_text)
                 }
-                var blurRadius by remember { mutableStateOf(3.px) }
+
                 Button(
                     attrs = HomeSectionButtonStyle.toModifier()
                         .height(40.px)
                         .borderRadius(16.px)
-                        .boxShadow(blurRadius = blurRadius, color = Color.white)
+                        .boxShadow(blurRadius = 3.px, color = Color.white)
                         .border(0.px)
                         .textShadow(CSSTextShadow(0.px, 1.px, 3.px, color = Colors.White))
                         .cursor(Cursor.Pointer)
@@ -158,10 +156,19 @@ fun HomeText(breakpoint: Breakpoint) {
                         modifier = Modifier
                             .fontSize(18.px)
                             .color(Theme.Secondary.rgb)
-                            .onTouchStart { blurRadius = 16.px }
-                            .onTouchEnd { blurRadius = 3.px }
-                            .textDecorationLine(TextDecorationLine.None),
-                        text = if (breakpoint <= Breakpoint.ZERO) Res.String.HomeSection.button_text_mobile else Res.String.HomeSection.button_text,
+                            .textDecorationLine(TextDecorationLine.None)
+                            .displayUntil(Breakpoint.MD),
+                        text = Res.String.HomeSection.button_text_mobile,
+                        path = Section.Contacts.path
+                    )
+
+                    Link(
+                        modifier = Modifier
+                            .fontSize(18.px)
+                            .color(Theme.Secondary.rgb)
+                            .textDecorationLine(TextDecorationLine.None)
+                            .displayIfAtLeast(Breakpoint.MD),
+                        text = Res.String.HomeSection.button_text,
                         path = Section.Contacts.path
                     )
                 }

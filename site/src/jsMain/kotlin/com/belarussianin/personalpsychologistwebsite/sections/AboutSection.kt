@@ -67,15 +67,14 @@ private fun AboutContent() {
     var selectedCertificate by remember { mutableStateOf<Certificate?>(null) }
 
     Column(
-        modifier = Modifier.fillMaxWidth(if (selectedCertificate == null) 90.percent else 100.percent),
+        modifier = Modifier.fillMaxWidth(if (selectedCertificate == null && breakpoint > Breakpoint.SM) 90.percent else 100.percent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SectionTitle(
             modifier = Modifier
                 .fillMaxWidth(90.percent)
                 .margin(bottom = 25.px),
-            section = Section.About,
-            breakpoint = breakpoint
+            section = Section.About
         )
         CertificatesCarousel(
             breakpoint = breakpoint,
@@ -102,12 +101,12 @@ private fun CertificatesCarousel(
                     selectedCertificate != null -> 2560.px
                     breakpoint > Breakpoint.SM -> 600.px
                     breakpoint > Breakpoint.ZERO -> 400.px
-                    else -> 256.px
+                    else -> 304.px
                 }
             )
             .height(auto)
             .fillMaxSize()
-            .padding(if (selectedCertificate == null) 2.cssRem else 0.px),
+            .padding(if (selectedCertificate == null) 1.cssRem else 0.px),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Bootstrap Carousel
@@ -147,13 +146,13 @@ private fun CertificatesCarousel(
                         type(ButtonType.Button.str)
                         attr("data-bs-target", "#$randomId")
                         attr("data-bs-slide", "prev")
-                        style { translateX((-40).px) }
+                        style { translateX((-20).px) }
                     }
                 ) {
                     Span(
                         attrs = {
                             classes("carousel-control-prev-icon")
-                            style { translateX(16.px) }
+                            style { translateX(8.px) }
                         }
                     )
                     Span(attrs = { classes("visually-hidden") }) { Text("Previous") }
@@ -166,13 +165,13 @@ private fun CertificatesCarousel(
                         type(ButtonType.Button.str)
                         attr("data-bs-target", "#$randomId")
                         attr("data-bs-slide", "next")
-                        style { translateX(40.px) }
+                        style { translateX(20.px) }
                     }
                 ) {
                     Span(
                         attrs = {
                             classes("carousel-control-next-icon")
-                            style { translateX((-16).px) }
+                            style { translateX((-8).px) }
                         }
                     )
                     Span(attrs = { classes("visually-hidden") }) { Text("Next") }

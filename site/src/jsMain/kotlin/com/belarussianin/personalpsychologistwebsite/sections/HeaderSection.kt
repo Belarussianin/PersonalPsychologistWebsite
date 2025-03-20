@@ -91,7 +91,6 @@ private fun LeftSide() {
                 .margin(topBottom = 0.px)
                 .fontFamily(FONT_FAMILY)
                 .fontWeight(FontWeight.Normal)
-                //.color(Theme.Secondary.rgb)
                 .textDecorationLine(TextDecorationLine.None),
             updateHistoryMode = UpdateHistoryMode.REPLACE,
             openInternalLinksStrategy = OpenLinkStrategy.IN_PLACE

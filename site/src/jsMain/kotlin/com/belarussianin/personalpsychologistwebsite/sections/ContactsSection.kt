@@ -9,10 +9,12 @@ import com.belarussianin.personalpsychologistwebsite.components.SectionTitle
 import com.belarussianin.personalpsychologistwebsite.models.Section
 import com.belarussianin.personalpsychologistwebsite.models.Theme
 import com.belarussianin.personalpsychologistwebsite.styles.ContactsStyle
+import com.belarussianin.personalpsychologistwebsite.styles.HomeSectionButtonStyle
+import com.belarussianin.personalpsychologistwebsite.util.Res
 import com.stevdza.san.kotlinbs.forms.BSInput
 import com.stevdza.san.kotlinbs.models.InputValidation
+import com.varabyte.kobweb.compose.css.CSSTextShadow
 import com.varabyte.kobweb.compose.css.Cursor
-import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.css.TransitionTimingFunction
@@ -21,35 +23,40 @@ import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.border
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
+import com.varabyte.kobweb.compose.ui.modifiers.boxShadow
 import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.cursor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.gap
+import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.id
 import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.size
-import com.varabyte.kobweb.compose.ui.modifiers.textAlign
 import com.varabyte.kobweb.compose.ui.modifiers.textDecorationLine
+import com.varabyte.kobweb.compose.ui.modifiers.textShadow
 import com.varabyte.kobweb.compose.ui.modifiers.transform
 import com.varabyte.kobweb.compose.ui.modifiers.transition
 import com.varabyte.kobweb.compose.ui.modifiers.width
-import com.varabyte.kobweb.silk.components.forms.Button
-import com.varabyte.kobweb.silk.components.forms.Input
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.icons.fa.FaTelegram
 import com.varabyte.kobweb.silk.components.icons.fa.FaViber
 import com.varabyte.kobweb.silk.components.icons.fa.IconSize
+import com.varabyte.kobweb.silk.components.layout.SimpleGrid
+import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import com.varabyte.kobweb.silk.style.until
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.css.Color
 import org.jetbrains.compose.web.css.cssRem
@@ -65,6 +72,10 @@ val ContactFormStyle = CssStyle {
             .backgroundColor(Theme.SecondaryContainer.rgb)
             .borderRadius(1.cssRem)
             .maxWidth(1200.px)
+    }
+
+    until(Breakpoint.SM) {
+        Modifier.padding(1.cssRem)
     }
 }
 
@@ -103,7 +114,6 @@ val InputStyle = CssStyle {
 
 @Composable
 fun ContactsSection() {
-    val breakpoint = rememberBreakpoint()
     Column(
         ContactsStyle.toModifier().id(Section.Contacts.id),
         verticalArrangement = Arrangement.Center,
@@ -114,7 +124,6 @@ fun ContactsSection() {
                 .fillMaxWidth(90.percent)
                 .margin(bottom = 25.px),
             section = Section.Contacts,
-            breakpoint = breakpoint,
             alignment = Alignment.CenterHorizontally
         )
 
@@ -135,8 +144,9 @@ fun ContactsSection() {
                         "Свяжитесь со мной напрямую",
                         modifier = Modifier.fontSize(1.25.cssRem).margin(bottom = 1.cssRem)
                     )
-                    Row(
-                        modifier = Modifier.gap(48.px)
+                    SimpleGrid(
+                        numColumns = numColumns(base = 1, sm = 2),
+                        modifier = Modifier.gap(56.px)
                     ) {
                         Link(
                             path = "viber://chat?number=%2B375291925218",
@@ -166,31 +176,25 @@ fun ContactsSection() {
                         modifier = Modifier.fontSize(1.25.cssRem).margin(bottom = 1.cssRem)
                     )
 
-                    Input(
+                    BSInput(
+                        modifier = Modifier.margin(bottom = 1.cssRem),
+                        id = "name",
+                        placeholder = "Ваше имя",
                         type = InputType.Text,
                         value = name,
                         onValueChange = { name = it },
-                        modifier = InputStyle.toModifier().margin(bottom = 1.cssRem).id("name"),
-                        placeholder = "Ваше имя"
+                        validation = InputValidation()
                     )
 
                     BSInput(
                         modifier = Modifier.margin(bottom = 1.cssRem),
                         id = "email",
                         placeholder = "Ваша эл. почта",
-                        type = InputType.Email,
+                        type = InputType.Text,
                         value = email,
                         onValueChange = { email = it },
                         validation = InputValidation()
                     )
-
-//                    Input(
-//                        type = InputType.Text,
-//                        value = email,
-//                        onValueChange = { email = it },
-//                        modifier = InputStyle.toModifier().margin(bottom = 1.cssRem).id("email"),
-//                        placeholder = "Ваша эл. почта"
-//                    )
 
                     SpanText(
                         "Выберите формат консультации",
@@ -229,21 +233,25 @@ fun ContactsSection() {
                         }
                     }
 
-                    Button(
-                        onClick = { /* Handle form submission */ },
-                        modifier = Modifier
-                            .backgroundColor(Color("#4a4e69"))
-                            .color(Color.white)
-                            .padding(1.cssRem, 2.cssRem)
-                            .borderRadius(2.cssRem)
+                    org.jetbrains.compose.web.dom.Button(
+                        attrs = HomeSectionButtonStyle.toModifier()
+                            .maxWidth(180.px)
+                            .height(40.px)
+                            .borderRadius(16.px)
+                            .boxShadow(color = Color.white)
                             .border(0.px)
-                            .textAlign(TextAlign.Center)
+                            .textShadow(CSSTextShadow(0.px, 1.px, 3.px, color = Colors.White))
                             .cursor(Cursor.Pointer)
-//                            .hover(
-//                                Modifier.backgroundColor(Color("#3d405b"))
-//                            )
+                            .toAttrs()
                     ) {
-                        SpanText("Записаться")
+                        Link(
+                            modifier = Modifier
+                                .fontSize(18.px)
+                                .color(Theme.Secondary.rgb)
+                                .textDecorationLine(TextDecorationLine.None),
+                            text = Res.String.HomeSection.button_text_mobile,
+                            path = Section.Contacts.path
+                        )
                     }
 
                     SpanText(

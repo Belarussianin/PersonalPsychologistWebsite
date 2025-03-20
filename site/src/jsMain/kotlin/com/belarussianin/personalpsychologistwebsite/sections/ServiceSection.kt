@@ -70,24 +70,26 @@ fun ServiceContent() {
                 .fillMaxWidth()
                 .margin(bottom = 20.px),
             section = Section.Services,
-            breakpoint = breakpoint,
             alignment = Alignment.CenterHorizontally
         )
         SimpleGrid(numColumns = numColumns(base = 1, sm = 2, md = 3)) {
             Service.entries.forEach { service ->
-                ServiceCard(service = service)
+                ServiceCard(service = service, breakpoint = breakpoint)
             }
         }
     }
 }
 
 @Composable
-private fun ServiceCard(service: Service) {
+private fun ServiceCard(
+    service: Service,
+    breakpoint: Breakpoint
+) {
     Row(
         modifier = ServiceCardStyle.toModifier()
             .maxWidth(300.px)
             .margin(all = 8.px)
-            .padding(all = 16.px)
+            .padding(all = if (breakpoint > Breakpoint.SM) 16.px else 8.px)
             .gap(16.px),
     ) {
         Box(

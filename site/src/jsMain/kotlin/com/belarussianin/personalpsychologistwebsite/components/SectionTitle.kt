@@ -1,15 +1,9 @@
 package com.belarussianin.personalpsychologistwebsite.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import com.belarussianin.personalpsychologistwebsite.models.Section
 import com.belarussianin.personalpsychologistwebsite.models.Theme
 import com.belarussianin.personalpsychologistwebsite.util.Constants.FONT_FAMILY
-import com.belarussianin.personalpsychologistwebsite.util.ObserveViewportEntered
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.Transition
@@ -30,51 +24,33 @@ import com.varabyte.kobweb.compose.ui.modifiers.textAlign
 import com.varabyte.kobweb.compose.ui.modifiers.transition
 import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.jetbrains.compose.web.css.minus
+import com.varabyte.kobweb.silk.style.toModifier
 import org.jetbrains.compose.web.css.ms
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
+val SubtitleStyle = CssStyle {
+    base {
+        Modifier
+            .fontFamily(FONT_FAMILY)
+            .fontSize(40.px)
+    }
+    Breakpoint.ZERO { Modifier.fontSize(28.px) }
+    Breakpoint.SM { Modifier.fontSize(28.px) }
+    Breakpoint.MD { Modifier.fontSize(32.px) }
+    Breakpoint.LG { Modifier.fontSize(36.px) }
+    Breakpoint.XL { Modifier.fontSize(40.px) }
+}
+
 @Composable
 fun SectionTitle(
     modifier: Modifier = Modifier,
     section: Section,
-    breakpoint: Breakpoint,
     alignment: Alignment.Horizontal = Alignment.Start
 ) {
-    val scope = rememberCoroutineScope()
-    var titleMargin by remember { mutableStateOf(if (breakpoint > Breakpoint.SM) 150.px else 0.px) }
-    var subtitleMargin by remember { mutableStateOf(if (breakpoint > Breakpoint.SM) 150.px else 0.px) }
-
-    val subtitleFontSize = when(breakpoint) {
-        Breakpoint.ZERO -> 28
-        Breakpoint.SM -> 28
-        Breakpoint.MD -> 32
-        Breakpoint.LG -> 36
-        Breakpoint.XL -> 40
-        else -> 40
-    }.px
-
-    ObserveViewportEntered(
-        sectionId = section.id,
-        distanceFromTop = 700.0,
-        onViewportEntered = {
-            if (breakpoint > Breakpoint.SM) {
-                scope.launch {
-                    while (titleMargin.value > 0) {
-                        delay(10)
-                        subtitleMargin -= 10.px
-                        delay(10)
-                        titleMargin -= 10.px
-                    }
-                }
-            }
-        }
-    )
 
     Column(
         modifier = modifier,
@@ -90,11 +66,6 @@ fun SectionTitle(
                         else -> TextAlign.Start
                     }
                 )
-                .margin(
-                    left = titleMargin,
-                    top = 0.px,
-                    bottom = 0.px
-                )
                 .fontFamily(FONT_FAMILY)
                 .fontSize(25.px)
                 .fontWeight(FontWeight.Normal)
@@ -105,7 +76,7 @@ fun SectionTitle(
             Text(section.title)
         }
         P(
-            attrs = Modifier
+            attrs = SubtitleStyle.toModifier()
                 .fillMaxWidth()
                 .textAlign(
                     when (alignment) {
@@ -115,13 +86,9 @@ fun SectionTitle(
                     }
                 )
                 .margin(
-                    left = if (alignment == Alignment.Start) subtitleMargin else 0.px,
-                    right = if (alignment == Alignment.CenterHorizontally) subtitleMargin else 0.px,
                     bottom = 10.px,
                     top = 0.px
                 )
-                .fontFamily(FONT_FAMILY)
-                .fontSize(subtitleFontSize)
                 .fontWeight(FontWeight.Bold)
                 .color(Theme.Secondary.rgb)
                 .transition(Transition.of(property = "margin", duration = 300.ms))
