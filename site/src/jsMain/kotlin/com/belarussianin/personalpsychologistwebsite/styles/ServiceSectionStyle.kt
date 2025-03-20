@@ -6,6 +6,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.border
+import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.transition
 import com.varabyte.kobweb.silk.style.CssStyle
@@ -17,10 +18,11 @@ import org.jetbrains.compose.web.css.px
 val ServiceCardStyle = CssStyle {
     base {
         Modifier
+            .borderRadius(16.px)
             .border(
-                width = 2.px,
+                width = 4.px,
                 style = LineStyle.Solid,
-                color = Theme.Surface.rgb
+                color = Theme.PrimaryContainer.rgb
             )
             .backgroundColor(Colors.White)
             .transition(
@@ -35,7 +37,7 @@ val ServiceCardStyle = CssStyle {
                 style = LineStyle.Solid,
                 color = Theme.Primary.rgb
             )
-            .backgroundColor(Theme.Primary.rgb)
+            .backgroundColor(Theme.SecondaryContainer.rgb)
     }
 
     cssRule(" > #iconBox") {
@@ -54,7 +56,7 @@ val ServiceCardStyle = CssStyle {
             .transition(Transition.of(property = "color", duration = 200.ms))
     }
 
-    cssRule(":hover > p") {
-        Modifier.color(Colors.White)
-    }
+//    cssRule(":hover > p") {
+//        Modifier.color(Colors.White)
+//    }
 }

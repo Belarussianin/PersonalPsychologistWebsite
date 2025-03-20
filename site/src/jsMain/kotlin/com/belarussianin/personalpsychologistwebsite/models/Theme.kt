@@ -15,5 +15,9 @@ enum class Theme(
     SecondaryContainer(hex = "#f0e2bb", rgb = Color.rgb(240, 226, 187)),
     Surface(hex = "#fff8ef", rgb = Color.rgb(255, 248, 239)),
     OnSurface(hex = "#1e1b13", rgb = Color.rgb(30, 27, 19)),
-    Tertiary(hex = "#45664c", rgb = Color.rgb(69, 102, 76))
+    Tertiary(hex = "#45664c", rgb = Color.rgb(69, 102, 76));
+
+    fun bsRgb(): String {
+        return rgb.toString().substringAfter("(").substringBefore(")")
+    }
 }

@@ -63,9 +63,15 @@ val HomeSectionButtonStyle = CssStyle {
             .backgroundColor(Theme.PrimaryContainer.rgb)
             .transition(Transition.of(property = "width", duration = 200.ms))
     }
+
     until(Breakpoint.LG) {
         Modifier.maxWidth(280.px)
     }
+
+    until(Breakpoint.SM) {
+        Modifier.width(160.px).maxWidth(224.px)
+    }
+
     hover {
         Modifier.width(320.px)
     }

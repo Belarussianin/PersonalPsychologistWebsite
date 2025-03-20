@@ -118,7 +118,7 @@ fun HomeText(breakpoint: Breakpoint) {
                     .margin(top = 20.px, bottom = 0.px)
                     .toAttrs()
             ) {
-                Text(Res.String.home_section_head_start_text)
+                Text(Res.String.HomeSection.head_start_text)
             }
             Column(
                 modifier = Modifier.margin(left = if (breakpoint >= Breakpoint.LG) 112.px else 48.px)
@@ -128,7 +128,7 @@ fun HomeText(breakpoint: Breakpoint) {
                         .margin(top = 0.px, bottom = 16.px)
                         .toAttrs()
                 ) {
-                    Text(Res.String.home_section_head_end_text)
+                    Text(Res.String.HomeSection.head_end_text)
                 }
                 P(
                     attrs = Modifier
@@ -141,7 +141,7 @@ fun HomeText(breakpoint: Breakpoint) {
                         .color(Theme.Secondary.rgb)
                         .toAttrs()
                 ) {
-                    Text(Res.String.home_section_body_text)
+                    Text(Res.String.HomeSection.description_text)
                 }
                 var blurRadius by remember { mutableStateOf(3.px) }
                 Button(
@@ -161,7 +161,7 @@ fun HomeText(breakpoint: Breakpoint) {
                             .onTouchStart { blurRadius = 16.px }
                             .onTouchEnd { blurRadius = 3.px }
                             .textDecorationLine(TextDecorationLine.None),
-                        text = Res.String.home_section_button_text,
+                        text = if (breakpoint <= Breakpoint.ZERO) Res.String.HomeSection.button_text_mobile else Res.String.HomeSection.button_text,
                         path = Section.Contacts.path
                     )
                 }

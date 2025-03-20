@@ -1,12 +1,12 @@
 package com.belarussianin.personalpsychologistwebsite.pages
 
 import androidx.compose.runtime.Composable
-import com.belarussianin.personalpsychologistwebsite.components.BackToTopButton
-import com.belarussianin.personalpsychologistwebsite.components.Footer
 import com.belarussianin.personalpsychologistwebsite.components.MobileMenu
 import com.belarussianin.personalpsychologistwebsite.components.rememberMobileMenuState
 import com.belarussianin.personalpsychologistwebsite.models.Section
 import com.belarussianin.personalpsychologistwebsite.sections.AboutSection
+import com.belarussianin.personalpsychologistwebsite.sections.ContactsSection
+import com.belarussianin.personalpsychologistwebsite.sections.FooterSection
 import com.belarussianin.personalpsychologistwebsite.sections.HeaderSection
 import com.belarussianin.personalpsychologistwebsite.sections.HomeSection
 import com.belarussianin.personalpsychologistwebsite.sections.ServiceSection
@@ -50,10 +50,9 @@ fun HomePage() {
             ServiceSection()
             AboutSection()
 
-            Footer()
+            ContactsSection()
+            FooterSection()
         }
-
-        BackToTopButton()
     }
 }
 

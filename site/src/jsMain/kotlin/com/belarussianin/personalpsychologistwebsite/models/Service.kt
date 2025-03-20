@@ -1,48 +1,38 @@
 package com.belarussianin.personalpsychologistwebsite.models
 
-import com.belarussianin.personalpsychologistwebsite.util.Constants.LOREM_IPSUM_SHORTEST
-import com.belarussianin.personalpsychologistwebsite.util.Res
-
 enum class Service(
-    val icon: String,
-    val imageDesc: String,
+    //val icon: String,
     val title: String,
     val description: String
 ) {
-    Android(
-        icon = Res.Icon.android,
-        imageDesc = "Android Icon",
-        title = "Android Development",
-        description = LOREM_IPSUM_SHORTEST
+    First(
+        //icon = Res.Icon.android,
+        title = "1",
+        description = "Проблемы с выражением и проживанием чувств и эмоций"
     ),
-    IOS(
-        icon = Res.Icon.apple,
-        imageDesc = "Apple Icon",
-        title = "iOS Development",
-        description = LOREM_IPSUM_SHORTEST
+    Second(
+        //icon = Res.Icon.apple,
+        title = "2",
+        description = "Самоопределение"
     ),
-    Web(
-        icon = Res.Icon.web,
-        imageDesc = "Desktop Icon",
-        title = "Web Development",
-        description = LOREM_IPSUM_SHORTEST
+    Third(
+        //icon = Res.Icon.web,
+        title = "3",
+        description = "Трудности с принятием решений"
     ),
-    Design(
-        icon = Res.Icon.design,
-        imageDesc = "Pen Icon",
-        title = "UX/UI Design",
-        description = LOREM_IPSUM_SHORTEST
+    Fourth(
+        //icon = Res.Icon.design,
+        title = "4",
+        description = "Утрата мотивации"
     ),
-    Business(
-        icon = Res.Icon.business,
-        imageDesc = "Chart Icon",
-        title = "Business Analysis",
-        description = LOREM_IPSUM_SHORTEST
+    Fifth(
+        //icon = Res.Icon.business,
+        title = "5",
+        description = "Эмоциональное выгорание"
     ),
-    SEO(
-        icon = Res.Icon.seo,
-        imageDesc = "Megaphone Icon",
-        title = "SEO Marketing",
-        description = LOREM_IPSUM_SHORTEST
+    Sixth(
+        //icon = Res.Icon.seo,
+        title = "6",
+        description = "Проблемы с межличностными (в том числе и семейными) отношениями"
     )
 }

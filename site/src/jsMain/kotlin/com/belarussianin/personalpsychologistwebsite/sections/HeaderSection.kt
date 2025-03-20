@@ -33,7 +33,6 @@ import com.varabyte.kobweb.compose.ui.modifiers.position
 import com.varabyte.kobweb.compose.ui.modifiers.size
 import com.varabyte.kobweb.compose.ui.modifiers.textDecorationLine
 import com.varabyte.kobweb.compose.ui.modifiers.zIndex
-import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.navigation.UpdateHistoryMode
 import com.varabyte.kobweb.silk.components.graphics.Image
@@ -49,7 +48,6 @@ import com.varabyte.kobweb.silk.style.toModifier
 import org.jetbrains.compose.web.css.Position
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.rgba
-import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
 @Composable
@@ -87,13 +85,16 @@ private fun LeftSide() {
             src = Res.Image.logo,
             alt = "Logo Image"
         )
-        P(
-            attrs = NameStyle.toModifier()
+        Link(
+            path = Section.Home.path,
+            modifier = NameStyle.toModifier()
                 .margin(topBottom = 0.px)
                 .fontFamily(FONT_FAMILY)
                 .fontWeight(FontWeight.Normal)
-                .color(Theme.Secondary.rgb)
-                .toAttrs()
+                //.color(Theme.Secondary.rgb)
+                .textDecorationLine(TextDecorationLine.None),
+            updateHistoryMode = UpdateHistoryMode.REPLACE,
+            openInternalLinksStrategy = OpenLinkStrategy.IN_PLACE
         ) {
             Text("Лариса Ворса")
         }

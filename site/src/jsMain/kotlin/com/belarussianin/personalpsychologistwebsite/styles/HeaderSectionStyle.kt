@@ -40,6 +40,20 @@ val NameStyle = CssStyle {
     Breakpoint.XL {
         Modifier.fontSize(32.px)
     }
+
+    base {
+        Modifier
+            .styleModifier {
+                property("--bs-link-color-rgb", Theme.Secondary.bsRgb())
+            }
+            .transition(Transition.of(property = "color", duration = 200.ms))
+    }
+
+    hover {
+        Modifier.styleModifier {
+            property("--bs-link-hover-color", Theme.OnSecondary.rgb)
+        }
+    }
 }
 
 val NavigationItemStyle = CssStyle {
@@ -47,18 +61,15 @@ val NavigationItemStyle = CssStyle {
         Modifier
             .fontSize(24.px)
             .styleModifier {
-                property("--bs-link-color", Theme.Secondary.rgb)
+                property("--bs-link-color-rgb", Theme.Secondary.bsRgb())
             }
-            .color(Theme.Secondary.rgb)
             .transition(Transition.of(property = "color", duration = 200.ms))
     }
 
     hover {
-        Modifier
-            .styleModifier {
-                property("--bs-link-hover-color", Theme.OnSecondary.rgb)
-            }
-            .color(Theme.OnSecondary.rgb)
+        Modifier.styleModifier {
+            property("--bs-link-hover-color", Theme.OnSecondary.rgb)
+        }
     }
 
     until(Breakpoint.LG) {

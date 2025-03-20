@@ -47,8 +47,17 @@ fun SectionTitle(
     alignment: Alignment.Horizontal = Alignment.Start
 ) {
     val scope = rememberCoroutineScope()
-    var titleMargin by remember { mutableStateOf(if (breakpoint > Breakpoint.SM) 250.px else 0.px) }
-    var subtitleMargin by remember { mutableStateOf(if (breakpoint > Breakpoint.SM) 250.px else 0.px) }
+    var titleMargin by remember { mutableStateOf(if (breakpoint > Breakpoint.SM) 150.px else 0.px) }
+    var subtitleMargin by remember { mutableStateOf(if (breakpoint > Breakpoint.SM) 150.px else 0.px) }
+
+    val subtitleFontSize = when(breakpoint) {
+        Breakpoint.ZERO -> 28
+        Breakpoint.SM -> 28
+        Breakpoint.MD -> 32
+        Breakpoint.LG -> 36
+        Breakpoint.XL -> 40
+        else -> 40
+    }.px
 
     ObserveViewportEntered(
         sectionId = section.id,
@@ -58,9 +67,9 @@ fun SectionTitle(
                 scope.launch {
                     while (titleMargin.value > 0) {
                         delay(10)
-                        subtitleMargin = subtitleMargin - 10.px
+                        subtitleMargin -= 10.px
                         delay(10)
-                        titleMargin = titleMargin - 10.px
+                        titleMargin -= 10.px
                     }
                 }
             }
@@ -112,7 +121,7 @@ fun SectionTitle(
                     top = 0.px
                 )
                 .fontFamily(FONT_FAMILY)
-                .fontSize(40.px)
+                .fontSize(subtitleFontSize)
                 .fontWeight(FontWeight.Bold)
                 .color(Theme.Secondary.rgb)
                 .transition(Transition.of(property = "margin", duration = 300.ms))

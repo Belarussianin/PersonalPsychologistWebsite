@@ -43,11 +43,12 @@ kotlin {
             implementation(libs.kobweb.core)
             implementation(libs.kobweb.compose)
             implementation(libs.kobweb.silk)
+            implementation(libs.silk.foundation)
             implementation(libs.silk.icons.fa)
             implementation(libs.kobwebx.markdown)
             //implementation(project(":worker"))
 
-            //implementation("com.github.stevdza-san:KotlinBootstrap:0.1.5")
+            implementation("com.github.stevdza-san:KotlinBootstrap:0.1.5")
         }
         jvmMain.dependencies {
             compileOnly(libs.kobweb.api) // Provided by Kobweb backend at runtime
